@@ -20,7 +20,8 @@ jobs:
         run: yarn add -D conventional-changelog-cli
       - name: Generate changelog temp
         run: yarn --silent conventional-changelog -p angular -r 2 -o CHANGELOG_TEMP
-      - uses: pCYSl5EDgo/cat@master
+      - name: Set temporary changelog to options
+        uses: pCYSl5EDgo/cat@master
         id: changelogData
         with:
           path: CHANGELOG_TEMP

@@ -12,6 +12,18 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@master
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Install changelog
+        run: yarn install conventional-changelog-cli
+      - name: Generate changelog temp
+        run: yarn --silent conventional-changelog -p angular -r 2 -o CHANGELOG_TEMP
+      - uses: pCYSl5EDgo/cat@master
+        id: changelogData
+        with:
+          path: CHANGELOG_TEMP
       - name: Create Release
         id: create_release
         uses: actions/create-release@latest
@@ -20,9 +32,6 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
-          body: |
-            Changes in this Release
-            - First Change
-            - Second Change
+          body: ${{ steps.hello.outputs.text }}
           draft: true
           prerelease: false

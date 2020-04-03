@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: 12
       - name: Install changelog
-        run: yarn install conventional-changelog-cli
+        run: yarn add -D conventional-changelog-cli
       - name: Generate changelog temp
         run: yarn --silent conventional-changelog -p angular -r 2 -o CHANGELOG_TEMP
       - uses: pCYSl5EDgo/cat@master

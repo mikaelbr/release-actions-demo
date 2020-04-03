@@ -30,9 +30,10 @@ jobs:
         uses: actions/create-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TEXT: ${{ steps.changelogData.outputs.text }}
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
-          body: ${{ steps.changelogData.outputs.text }}
+          body: $TEXT
           draft: true
           prerelease: false

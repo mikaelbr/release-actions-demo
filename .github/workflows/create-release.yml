@@ -1,39 +1,39 @@
-on:
-  push:
-    tags:
-      - "v*"
+# on:
+#   push:
+#     tags:
+#       - "v*"
 
-name: Create Release
+# name: Create Release
 
-jobs:
-  build:
-    name: Create Release
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@master
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - name: Install changelog
-        run: yarn add -D conventional-changelog-cli
-      - name: Generate changelog temp
-        run: yarn --silent conventional-changelog -p angular -r 2 -o CHANGELOG_TEMP
-      - name: Set temporary changelog to options
-        uses: pCYSl5EDgo/cat@master
-        id: changelogData
-        with:
-          path: CHANGELOG_TEMP
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TEXT: ${{ steps.changelogData.outputs.text }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: $TEXT
-          draft: true
-          prerelease: false
+# jobs:
+#   build:
+#     name: Create Release
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@master
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v1
+#         with:
+#           node-version: 12
+#       - name: Install changelog
+#         run: yarn add -D conventional-changelog-cli
+#       - name: Generate changelog temp
+#         run: yarn --silent conventional-changelog -p angular -r 2 -o CHANGELOG_TEMP
+#       - name: Set temporary changelog to options
+#         uses: pCYSl5EDgo/cat@master
+#         id: changelogData
+#         with:
+#           path: CHANGELOG_TEMP
+#       - name: Create Release
+#         id: create_release
+#         uses: actions/create-release@latest
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#           TEXT: ${{ steps.changelogData.outputs.text }}
+#         with:
+#           tag_name: ${{ github.ref }}
+#           release_name: Release ${{ github.ref }}
+#           body: $TEXT
+#           draft: true
+#           prerelease: false

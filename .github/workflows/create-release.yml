@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+      - run: |
+          git fetch --prune --unshallow
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
@@ -19,7 +20,7 @@ jobs:
       - name: Install changelog
         run: yarn add -D conventional-changelog-cli
       - name: Generate changelog temp
-        run: yarn --silent conventional-changelog -p angular -r 3 -o CHANGELOG_TEMP
+        run: yarn conventional-changelog -p angular -r 3 -o CHANGELOG_TEMP
       - name: Show changelog
         run: cat CHANGELOG_TEMP
       - name: Set temporary changelog to options

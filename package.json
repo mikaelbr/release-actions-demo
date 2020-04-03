@@ -10,6 +10,14 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "conventional-changelog-cli": "^2.0.31"
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "conventional-changelog-cli": "^2.0.31",
+    "husky": "^4.2.3"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
